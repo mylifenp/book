@@ -1,0 +1,22 @@
+{
+  "name": "book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "debug": "DEBUG=@neo4j/graphql:* nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@neo4j/graphql": "^3.6.2",
+    "apollo-server": "^3.10.1",
+    "dotenv": "^16.0.1",
+    "graphql": "^16.5.0",
+    "neo4j-driver": "^4.4.7",
+    "nodemon": "^2.0.19"
+  }
+}
