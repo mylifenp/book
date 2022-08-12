@@ -1,7 +1,7 @@
-const { Neo4jGraphQL } = require("@neo4j/graphql");
-const { ApolloServer, gql } = require("apollo-server");
-const neo4j = require("neo4j-driver");
-require("dotenv").config();
+import "dotenv/config";
+import { Neo4jGraphQL } from "@neo4j/graphql";
+import { ApolloServer, gql } from "apollo-server";
+import neo4j from "neo4j-driver";
 
 // const typeDefs = gql`
 //     type Movie {
@@ -71,7 +71,7 @@ const typeDefs = /* GraphQL */ gql`
 
 const resolvers = {
   Business: {
-    waitTime: (obj, args, context, info) => {
+    waitTime: (obj: any, args: any, context: any, info: any) => {
       const options = [0, 5, 10, 15, 30, 45];
       return options[Math.floor(Math.random() * options.length)];
     },
@@ -79,15 +79,15 @@ const resolvers = {
 };
 
 const driver = neo4j.driver(
-  process.env.NEO4J_URI,
-  neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD)
+  `${process.env.NEO4J_URI}`,
+  neo4j.auth.basic(`${process.env.NEO4J_USER}`, `${process.env.NEO4J_PASSWORD}`)
 );
 
 const neoSchema = new Neo4jGraphQL({ typeDefs, resolvers, driver });
 
 neoSchema.getSchema().then((schema) => {
   const server = new ApolloServer({ schema });
-  server.listen().then(({ url }) => {
+  server.listen(process.env.PORT).then(({ url }) => {
     console.log(`GraphQL server ready at ${url}`);
   });
 });
